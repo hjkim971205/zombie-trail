@@ -1,3 +1,5 @@
+import rollNumber from "./rollNumber.js";
+
 export default function Zombie(name, difficultyMultiplier) { //Creating a new zombie with the attributes of health and damage.
   this.name = name;
   let baseHealth = 5 * difficultyMultiplier;

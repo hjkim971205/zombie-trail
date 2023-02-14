@@ -1,3 +1,5 @@
+import Party from "./party.js";
+
 export default function Inventory() {
   this.bullet = 10;
   this.food = 10;
@@ -30,9 +32,9 @@ Inventory.prototype.fightMob = function () {
 };
 
 Inventory.prototype.heal = function () {
-  this.medkit -= Math.round(members.length() * 0.5);
+  this.medkit -= Math.round(Party.members.length() * 0.5);
 };
 
 Inventory.prototype.rest = function () {
-  this.food -= members.length() * 0.5 * rollNumber(1, 3);
+  this.food -= Party.members.length() * 0.5 * rollNumber(1, 3);
 };

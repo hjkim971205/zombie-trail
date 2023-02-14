@@ -1,9 +1,14 @@
-export default function Game(daysLeft) {
+export default function Game() {
   this.totalDays = 0;
-  this.daysLeft = daysLeft;
+  this.daysLeft = 100;
   this.imgArray =  ["url(img/travel3.png)", "url(img/travel2.png)", "url(img/travel1.png)"];
   this.imgArrayIndex = 0;
+
+  this.addDay = function() {
+    this.totalDays++;
+  };
 }
+
 
 /*
  * make a js file for events.js
