@@ -37,6 +37,18 @@ module.exports = {
           'html-loader'
         ]
       },
+      {
+        test: /\.(gif|png|avif|jpe?g)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/images/'
+            }
+          }
+        ]
+      }
     ]
   }
 };

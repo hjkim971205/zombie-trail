@@ -1,10 +1,13 @@
-import Character from "./game.js";
-import Game from "./game.js";
-import Party from "./game.js";
-import Zombie from "./game.js";
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/styles.css';
+import Character from './js/character.js';
+// import Game from "./game.js";
+import Party from './js/party.js';
+// import Zombie from "./game.js";
 
-const gameStartSong = new Audio("audio.md");
-const gameWinSong = new Audio();
+// const gameStartSong = new Audio("audio.md");
+// const gameWinSong = new Audio();
 let party = new Party();
 
 //UI Logic
@@ -21,31 +24,18 @@ function handleFormSubmission(event) {
   let char3 = new Character(member2);
   let char4 = new Character(member3);
 
-  party.members.push(char1, char2, char3, char4)
+  party.members.push(char1, char2, char3, char4);
   let list = document.getElementById("zombieMembers").innerHTML = "";
   party.members.forEach(function(memberName) {
     let listNames = document.createElement("li");
     listNames.textContent = memberName.name;
     list.appendChild(listNames);
-    console.log(party);
-  })
+  });
 
-  let autoName = [
-    "Rick",
-    "Daryl",
-    "Maggie",
-    "Glen",
-    "Negan",
-    "Morgan",
-    "Carol",
-    "Shane",
-    "Dale",
-    "Michone",
-    "Sasha",
-    "Abraham",
-  ];
+  let autoName = ["Rick", "Daryl", "Maggie", "Glen", "Negan", "Morgan", "Carol", "Shane", "Dale", "Michone", "Sasha", "Abraham"];
   party.members.forEach(function (autoMemberName) {
     if (!autoMemberName.name) {
+      // eslint-disable-next-line no-undef
       let index = rollNumber(0, autoName.length);
       autoMemberName.name = autoName[index];
       autoName.splice(index, 1);
