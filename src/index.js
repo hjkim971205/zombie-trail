@@ -58,6 +58,8 @@ function handleFormSubmission(event) {
       list.appendChild(listNames);
     });
   });
+
+
   // Inventory UI
   let listSupply = document.getElementById("inventory");
   const bullets = document.createElement("li");
@@ -76,7 +78,7 @@ function handleFormSubmission(event) {
   $("#gameScreen").show();
 }
 
-//
+//All the game functions
 function travel(rollFates, party, inventory) {
   fates(rollFates, party, inventory);
 }
@@ -88,13 +90,16 @@ function updateStats() {
     memberNames += "<li>" + member.name + " | Health: " + member.health + " | Stamina:" + member.stamina + "</li>";
   });
   $("#zombieMembers").html(memberNames);
-  // let inventoryItems = "";
-  // inventory.forEach(function (item) {
-  //   inventoryItems += "<li>" + item.bullet + "</li>";
-  // });
-  // $("#inventory").html(inventoryItems);
+  let inventoryItems = "";
+  inventory.forEach(function(item) {
+    console.log(item);
+    inventoryItems += "<li>" + item.bullet + "</li>";
+  });
+  $("#inventory").html(inventoryItems);
 }
 
+
+//All the event listener fucntions
 window.addEventListener("load", function () {
   document.querySelector("form#createParty").addEventListener("submit", handleFormSubmission);
 });
