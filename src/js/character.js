@@ -2,13 +2,13 @@ import rollNumber from "./rollNumber.js";
 
 export default function Character(name) {//Creates new Character objects with pre-determined stats
   this.name = name;
-  this.health = 50; // when helath becomes 0 the character will die.
+  this.health = 100; // when helath becomes 0 the character will die.
   this.stamina = 100; //"zombie meter" and able to use stamina to use special moves during fights.
   this.turned = false; //if health becomes 0 turns into zombie. To regain stamina must rest. 
 }
 
 Character.prototype.healthGain = function() { //health gain after healing
-  let amount = rollNumber(1,5);
+  let amount = rollNumber(15,25);
   this.health += amount;
   if (this.health > 100) { // Makes sure that health does not go over 100
     this.health = 100;
@@ -31,6 +31,9 @@ Character.prototype.staminaLost = function() { //stamina lost while travelling
   }
   if (this.stamina <= 0) { //start losing heath after travelling if stamina becomes 0
     this.health -= amount;
+  } 
+  if (this.health <= 0) {
+    this.health = 0;
   }
 };
 

@@ -38,7 +38,7 @@ ul {
 .randomEvent {
   text-align: center;
   border: double 2px #ffe600;
-  height: auto;
+  height: 122px;
   min-height: 61px;
 }
 

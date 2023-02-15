@@ -8,7 +8,7 @@ export default function fates(roll, party, inventory) {
   const charIndex = rollNumber(0, party.members.length-1); // grabs a person to potentially inflict status/damage
   if (roll <= 10) {
     let staminaVar = rollNumber(5, 20);
-    $("#randomEventMessage").text(party.members[charIndex].name +` was up all night and now has lost ${staminaVar} stamina`
+    $("#randomEventMessage").text(party.members[charIndex].name +` was up all night and now has lost ${staminaVar} stamina.`
     );
     party.members[charIndex].stamina -= staminaVar;
   } else if (roll <= 15) {
@@ -21,7 +21,7 @@ export default function fates(roll, party, inventory) {
     inventory.medkit -= medkitVar;
   } else if (roll <= 20) {
     const foodVar = rollNumber(1, 5);
-    $("#randomEventMessage").text(`Your party has stumbled upon a field of vegtables gain ${foodVar}.`);
+    $("#randomEventMessage").text(`Your party has stumbled upon a field of vegtables gain ${foodVar} food.`);
     inventory.food += foodVar;
   } else if (roll <= 23) {
     const bulletVar = rollNumber(2, 3);
@@ -30,27 +30,27 @@ export default function fates(roll, party, inventory) {
   } else if (roll <= 30) {
     const healthVar = rollNumber(10, 20);
     const staminaVar = rollNumber(10, 20);
-    $("#randomEventMessage").text(party.members[charIndex].name +`ate rotten food and couldnt sleep at night lost ${healthVar} health and ${staminaVar} stamina`);
+    $("#randomEventMessage").text(party.members[charIndex].name +`ate rotten food and couldnt sleep at night lost ${healthVar} health and ${staminaVar} stamina.`);
     party.members[charIndex].health -= healthVar;
     party.members[charIndex].stamina -= staminaVar;
     //needs to update health and stamina
   } else if (roll <= 35) {
     const healthVar = rollNumber(25, 40);
-    $("#randomEventMessage").text(`The party gets caught in a firefight with other survivors, ${party.members[charIndex].name} gets nicked by a bullet and loses ${healthVar}.`);
+    $("#randomEventMessage").text(`The party gets caught in a firefight with other survivors, ${party.members[charIndex].name} gets nicked by a bullet and loses ${healthVar} health.`);
     party.members[charIndex].health -= healthVar;
   } else {
     $("#randomEventMessage").text("Your party traveled another day");
     const rollNormalEvent = rollNumber(1, 6);
     if ((rollNormalEvent === 1)) {
       $("#randomEventMessage").text(
-        "Your party successfully traveled a day and are one step closer to the safe haven"
+        "Your party successfully traveled a day and are one step closer to the safe haven."
       );
     } else if ((rollNormalEvent === 2)) {
-      $("#randomEventMessage").text("It was a long grueling day of travel but you have made it one step closer to safety"
+      $("#randomEventMessage").text("It was a long grueling day of travel but you have made it one step closer to safety."
       );
     } else if ((rollNormalEvent === 3)) {
       $("#randomEventMessage").text(
-        `Even though ${party.members[charIndex].name} annoyed the whole group you have made it another day safely`
+        `Even though ${party.members[charIndex].name} annoyed the whole group you have made it another day safely.`
       );
     } else if ((rollNormalEvent === 4)) {
       $("#randomEventMessage").text("Gunshots fill the air, good thing the party is no where near them. You feel salvation is one day closer."

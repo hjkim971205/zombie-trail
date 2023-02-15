@@ -42,7 +42,7 @@ function handleFormSubmission(event) {
     list.appendChild(listNames);
   });
 
-  let autoName = ["Rick", "Daryl", "Maggie", "Glen", "Negan", "Morgan", "Carol", "Shane", "Dale", "Michone", "Sasha", "Abraham"];
+  let autoName = ["Rick ", "Daryl ", "Maggie ", "Glen ", "Negan ", "Morgan ", "Carol ", "Shane ", "Dale ", "Michone ", "Sasha ", "Abraham "];
   party.members.forEach(function (autoMemberName) {
     if (!autoMemberName.name) {
       let index = rollNumber(0, autoName.length);
@@ -112,7 +112,9 @@ $(".travel").click(function () {
   $(".imgHeader").css("background-image", game.imgArray[game.imgArrayIndex]);
   for (let i = 0; i < party.members.length; i++) {
     party.members[i].staminaLost();
+    
   }
+  checkDeath();
   game.totalDays++;
   if(game.imgArrayIndex < 2) {
     game.imgArrayIndex++;
@@ -126,14 +128,16 @@ $(".travel").click(function () {
 
 // listener for resting
 $(".rest").click(function () {
-  //game.totalDays++;
-  for (let i = 0; i < party.members.length; i++) {
-    party.members[i].staminaGain();
-    // this.food -= party.members.length() * 0.5 * rollNumber(1, 3);
-    //console.log(party.members[i]);
+  if (inventory.food > 0) {
+    for (let i = 0; i < party.members.length; i++) {
+      party.members[i].staminaGain();
+    }
+    $("#randomEventMessage").text("Your party decides its best to heal to rest and eat some food. The party used some of their food supplies!");
+    inventory.food -= rollNumber(1,3);
+    updateStats();
+  } else {
+    $("#randomEventMessage").text("Despite your best wishes, your party is unable to rest easy without food. (No food!)");
   }
-
-  updateStats();
 });
 
 //listener for heal
@@ -142,41 +146,66 @@ $(".heal").click(function () {
     for (let i = 0; i < party.members.length; i++) {
       party.members[i].healthGain();
     }
-    $("#randomEventMessage").text(
-      "Your party decides its best to heal some wounds, the party used a medkit")
-    inventory.medkit -= 1
+    $("#randomEventMessage").text("Your party decides its best to heal some wounds, the party used a medkit.");
+    inventory.medkit -= 1;
     updateStats();
   } else {
-    $("#randomEventMessage").text(
-      "Despite your best wishes, you cannot heal without supplies(no medkits!)")
+    $("#randomEventMessage").text("Despite your best wishes, you cannot heal without supplies(no medkits!)");
   }
 });
 
 //listener for restocking
 $(".restock").click(function () {
-  inventory.restock();
   game.totalDays++;
-  updateStats();
+  const restockFate = rollNumber(1,10);
+  if (restockFate <= 2) {
+    $("#randomEventMessage").text("Your party looks for supplies, but they find nothing. What a waste of time. Party loses some stamina.");
+    for (let i = 0; i < party.members.length; i++) {
+      party.members[i].staminaLost();
+    }
+    updateStats();
+  } else if (restockFate <=3) {
+    $("#randomEventMessage").text("Your party looks for supplies in a run down building. Suddenly debris falls on your party! Some are more hurt than others...");
+    for (let i = 0; i < party.members.length; i++) {
+      party.members[i].health -= rollNumber(3,10);
+    }
+    updateStats();
+  }else if (restockFate <5) {
+    $("#randomEventMessage").text("Your party is ambushed. Your party runs like your life depends on it through rough terrain to escape. Party loses stamina and health");
+    for (let i = 0; i < party.members.length; i++) {
+      party.members[i].health -= rollNumber(3,10);
+    }
+    for (let i = 0; i < party.members.length; i++) {
+      party.members[i].staminaLost();
+    }
+    updateStats();
+  }else {
+    inventory.restock();
+    $("#randomEventMessage").text("Your party looks for supplies and are successful! Some supplies are restocked");
+    updateStats();
+  }
 });
 
 
-// function checkDeath() {
-//   let deathString = "";
-//   for(let i = 0; i < party.members.length; i++) {
-//     if(party.members[i].deathCheck(i)) {
-//       deathString += party.members[i].name + " has died. ";
-//       party.members.splice(i, 1);
-//       if (party.members.length <= 0) {
-//         $("#event").html("Everyone in your party has died. The game is over.");
-//         $(".imgHeader").css("background-image", "url(../assets/images/GameOver.png");
-//         return;
-//       }
-//       i--;
-//     }
-//   }
- 
-//   if (deathString) {
-//     deathString += "Bummer.";
-//     $("#event").html(deathString);
-//   }
-// }
+function checkDeath() {
+  let deathString = "";
+  for(let i = 0; i < party.members.length; i++) {
+    if(party.members[i].deathCheck(i)) {
+      deathString += party.members[i].name + " has died. ";
+      party.members.splice(i, 1);
+      if (party.members.length <= 0) {
+        $("#randomEventMessage").html("Everyone in your party has died. The game is over.");
+        $(".imgHeader").css("background-image", "url(../assets/images/GameOver.png");
+        return;
+      }
+      i--;
+    }
+  }
+
+  if (deathString) {
+    deathString += "Bummer.";
+    $("#randomEventMessage").html(deathString);
+  }
+}
+
+
