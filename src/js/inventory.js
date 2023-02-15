@@ -1,4 +1,5 @@
 import Party from "./party.js";
+import rollNumber from "./rollNumber.js";
 
 export default function Inventory() {
   this.bullet = 10;
@@ -6,9 +7,7 @@ export default function Inventory() {
   this.medkit = 5;
 }
 
-let rollNumber = new rollNumber();
-
-Inventory.prototype.gather = function () {
+Inventory.prototype.restock = function () {
   let amountB = rollNumber(1, 5);
   let amountF = rollNumber(1, 5);
   let amountM = rollNumber(0, 2);

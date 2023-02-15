@@ -1,24 +1,27 @@
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/styles.css';
-import Character from './js/character.js';
-import Party from './js/party.js';
-import rollNumber from './js/rollNumber';
-import Game from './js/game.js';
-import $ from 'jquery';
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/styles.css";
+import Character from "./js/character.js";
+import Party from "./js/party.js";
+import rollNumber from "./js/rollNumber";
+import Game from "./js/game.js";
+import $ from "jquery";
 import fates from "./js/events.js";
+import Inventory from "./js/inventory.js";
 window.jQuery = $;
 window.$ = $;
-
 
 // const gameStartSong = new Audio("audio.md");
 // const gameWinSong = new Audio();
 let party = new Party();
+let inventory = new Inventory();
 const game = new Game();
 
 //UI Logic
 function handleFormSubmission(event) {
   event.preventDefault();
+
+  // Character Names
 
   const carLeader = document.getElementById("addLeader").value;
   const member1 = document.getElementById("addMember1").value;
@@ -32,8 +35,8 @@ function handleFormSubmission(event) {
 
   party.members.push(char1, char2, char3, char4);
   let list = document.querySelector("#zombieMembers");
-  list.innerHTML = "";  
-  party.members.forEach(function(memberName) {
+  list.innerHTML = "";
+  party.members.forEach(function (memberName) {
     let listNames = document.createElement("li");
     listNames.textContent = memberName.name;
     list.appendChild(listNames);
@@ -48,64 +51,90 @@ function handleFormSubmission(event) {
     }
 
     let list = document.querySelector("#zombieMembers");
-    list.innerHTML = "";  
-    party.members.forEach(function(memberName) {
+    list.innerHTML = "";
+    party.members.forEach(function (memberName) {
       let listNames = document.createElement("li");
       listNames.textContent = memberName.name;
       list.appendChild(listNames);
     });
-
-    $("#homeScreen").hide();
-    $("#gameScreen").show();
-    console.log(fates);
-
   });
+  // Inventory UI
+  let listSupply = document.getElementById("inventory");
+  const bullets = document.createElement("li");
+  const food = document.createElement("li");
+  const medKit = document.createElement("li");
+
+  bullets.textContent = `Bullet: ${inventory.bullet}`;
+  food.textContent = `Food: ${inventory.food}`;
+  medKit.textContent = `Med Kit: ${inventory.medkit}`;
+
+  listSupply.appendChild(bullets);
+  listSupply.appendChild(food);
+  listSupply.appendChild(medKit);
+
+  $("#homeScreen").hide();
+  $("#gameScreen").show();
 }
 
-// function travel() {
-//   const roll = rollNumber(1,101);
-//   console.log(roll);
-//   fates(roll)
-// }
+//
+function travel(party, inventory) {
+  const roll = rollNumber(1, 101);
+  fates(roll, party, inventory);
+}
 
 function updateStats() {
   $(".totalDays").text(game.totalDays);
   let memberNames = "";
-  party.members.forEach(function(member) {
-    console.log(member);
+  party.members.forEach(function (member) {
     memberNames += "<li>" + member.name + " | Health: " + member.health + " | Stamina:" + member.stamina + "</li>";
   });
   $("#zombieMembers").html(memberNames);
-
+  let inventoryItems = "";
+  inventory.forEach(function (item) {
+    inventoryItems += "<li>" + item.bullet + "</li>";
+  });
+  $("#inventory").html(inventoryItems);
 }
 
-
-
 window.addEventListener("load", function () {
-  document.querySelector("form#createParty").addEventListener("submit", handleFormSubmission);
+  document
+    .querySelector("form#createParty")
+    .addEventListener("submit", handleFormSubmission);
 });
 
+$(".travel").click(function () {
+  $("#randomEventMessage").empty();
 
-$(".travel").click(function(){
-  game.totalDays++;
-  for(let i=0; i <party.members.length; i++){
+  for (let i = 0; i < party.members.length; i++) {
     party.members[i].staminaLost();
   }
+  travel();
+  game.totalDays++;
   updateStats();
 });
 
-$(".rest").click(function() {
-  game.totalDays++;
+$(".rest").click(function () {
+  //game.totalDays++;
   for (let i = 0; i < party.members.length; i++) {
     party.members[i].staminaGain();
-    console.log(party.members[i]);
+    //console.log(party.members[i]);
   }
-  
+
   updateStats();
 });
 
+$(".heal").click(function () {
+  //game.totalDays++;
+  for (let i = 0; i < party.members.length; i++) {
+    party.members[i].healthGain();
+    //console.log(party.members[i]);
+  }
 
+  updateStats();
+});
 
-// document.querySelector(".travel").addEventListener("click", function(){
-//   game.totalDays++;
-// });
+$(".restock").click(function () {
+  for (let i = 0; i < party.members.length; i++) {
+    ("");
+  }
+});

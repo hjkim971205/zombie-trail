@@ -5,7 +5,7 @@ window.$ = $;
 
 export default function fates(roll, party, inventory) {
   // Function that rolls events
-  const charIndex = rollNumber(0, party.party.length); // grabs a person to potentially inflict status/damage
+  const charIndex = rollNumber(0, party.members.length); // grabs a person to potentially inflict status/damage
   $("#event").html(
     "Though the journey may be rough, you have continued on your trail."
   );
@@ -82,8 +82,7 @@ export default function fates(roll, party, inventory) {
           "It was a quiet night... but you successfully move one day closer to a new life."
         );
       } else {
-        console.log("IT SHOULD NOT BE ROLLING PAST 6");
-        console.log(rollNormalEvent);
+        return rollNormalEvent;
       }
     }
   }

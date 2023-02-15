@@ -17,7 +17,7 @@ html, body {
 }
 
 h2 {
-  font-size: 42px;
+  font-size: 38px;
 }
 
 ul {
@@ -28,22 +28,24 @@ ul {
   display: none;
 }
 
+
+
 .mourn, .talk, .restartGame, .crossRiver {
   display: none;
 }
 
 .randomEvent {
   text-align: center;
-  border: dotted 2px #ffe600;
+  border: double 2px #ffe600;
   height: auto;
   min-height: 61px;
 }
 
 .statsBox {
   margin-top: 30px;
-  border-top-style: dashed;
-  border-right-style: dotted;
-  border-bottom-style: dashed;
+  border-top-style: double;
+  border-right-style: double;
+  border-bottom-style: double;
   border-color: #ffe600;
   border-size: 3px;
   height: auto;
@@ -57,7 +59,7 @@ ul {
 
 .statsBox h1 {
   margin: 0;
-  font-size: 85px;;
+  font-size: 75px;;
   color: #ff0101;
 }
 
