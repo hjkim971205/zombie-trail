@@ -77,9 +77,8 @@ function handleFormSubmission(event) {
 }
 
 //
-function travel(party, inventory) {
-  const roll = rollNumber(1, 101);
-  fates(roll, party, inventory);
+function travel(rollFates, party, inventory) {
+  fates(rollFates, party, inventory);
 }
 
 function updateStats() {
@@ -89,17 +88,15 @@ function updateStats() {
     memberNames += "<li>" + member.name + " | Health: " + member.health + " | Stamina:" + member.stamina + "</li>";
   });
   $("#zombieMembers").html(memberNames);
-  let inventoryItems = "";
-  inventory.forEach(function (item) {
-    inventoryItems += "<li>" + item.bullet + "</li>";
-  });
-  $("#inventory").html(inventoryItems);
+  // let inventoryItems = "";
+  // inventory.forEach(function (item) {
+  //   inventoryItems += "<li>" + item.bullet + "</li>";
+  // });
+  // $("#inventory").html(inventoryItems);
 }
 
 window.addEventListener("load", function () {
-  document
-    .querySelector("form#createParty")
-    .addEventListener("submit", handleFormSubmission);
+  document.querySelector("form#createParty").addEventListener("submit", handleFormSubmission);
 });
 
 $(".travel").click(function () {
@@ -108,8 +105,9 @@ $(".travel").click(function () {
   for (let i = 0; i < party.members.length; i++) {
     party.members[i].staminaLost();
   }
-  travel();
   game.totalDays++;
+  const rollFates = rollNumber(1,101);
+  travel(rollFates, party, inventory);
   updateStats();
 });
 
@@ -117,6 +115,7 @@ $(".rest").click(function () {
   //game.totalDays++;
   for (let i = 0; i < party.members.length; i++) {
     party.members[i].staminaGain();
+    // this.food -= party.members.length() * 0.5 * rollNumber(1, 3);
     //console.log(party.members[i]);
   }
 
@@ -127,6 +126,7 @@ $(".heal").click(function () {
   //game.totalDays++;
   for (let i = 0; i < party.members.length; i++) {
     party.members[i].healthGain();
+    //inventory.heal();
     //console.log(party.members[i]);
   }
 
@@ -134,7 +134,6 @@ $(".heal").click(function () {
 });
 
 $(".restock").click(function () {
-  for (let i = 0; i < party.members.length; i++) {
-    ("");
-  }
+  inventory.restock();
+  game.totalDays++;
 });
