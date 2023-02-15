@@ -138,14 +138,18 @@ $(".rest").click(function () {
 
 //listener for heal
 $(".heal").click(function () {
-  //game.totalDays++;
-  for (let i = 0; i < party.members.length; i++) {
-    party.members[i].healthGain();
-    //inventory.heal();
-    //console.log(party.members[i]);
+  if (inventory.medkit > 0) {
+    for (let i = 0; i < party.members.length; i++) {
+      party.members[i].healthGain();
+    }
+    $("#randomEventMessage").text(
+      "Your party decides its best to heal some wounds, the party used a medkit")
+    inventory.medkit -= 1
+    updateStats();
+  } else {
+    $("#randomEventMessage").text(
+      "Despite your best wishes, you cannot heal without supplies(no medkits!)")
   }
-
-  updateStats();
 });
 
 //listener for restocking

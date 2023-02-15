@@ -1,4 +1,3 @@
-
 export default function Game() {
   this.totalDays = 0;
   this.daysLeft = 100;
