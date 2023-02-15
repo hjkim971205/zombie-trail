@@ -34,8 +34,8 @@ Character.prototype.staminaLost = function() { //stamina lost while travelling
   }
 };
 
-Character.prototype.deathCheck = function(/*character*/) {
-  if(this.health<=0) {
+Character.prototype.deathCheck = function(character) {
+  if(character.health<=0) {
     return true;
   }
 };

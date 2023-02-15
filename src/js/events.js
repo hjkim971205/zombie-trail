@@ -6,7 +6,6 @@ window.$ = $;
 // Function that rolls events
 export default function fates(roll, party, inventory) {
   const charIndex = rollNumber(0, party.members.length-1); // grabs a person to potentially inflict status/damage
-  console.log(inventory);
   if (roll <= 10) {
     let staminaVar = rollNumber(5, 20);
     $("#randomEventMessage").text(party.members[charIndex].name +` was up all night and now has lost ${staminaVar} stamina`
@@ -37,12 +36,11 @@ export default function fates(roll, party, inventory) {
     //needs to update health and stamina
   } else if (roll <= 35) {
     const healthVar = rollNumber(25, 40);
-    $("#randomEventMessage").text(`The party gets caught in a firefight with other survivors, ${party.party[charIndex].name} gets nicked by a bullet and loses ${healthVar}.`);
+    $("#randomEventMessage").text(`The party gets caught in a firefight with other survivors, ${party.members[charIndex].name} gets nicked by a bullet and loses ${healthVar}.`);
     party.members[charIndex].health -= healthVar;
   } else {
     $("#randomEventMessage").text("Your party traveled another day");
     const rollNormalEvent = rollNumber(1, 6);
-    console.log(rollNormalEvent);
     if ((rollNormalEvent === 1)) {
       $("#randomEventMessage").text(
         "Your party successfully traveled a day and are one step closer to the safe haven"

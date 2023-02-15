@@ -15,7 +15,7 @@ window.$ = $;
 // const gameWinSong = new Audio();
 let party = new Party();
 let inventory = new Inventory();
-const game = new Game();
+let game = new Game();
 
 //UI Logic
 function handleFormSubmission(event) {
@@ -56,23 +56,24 @@ function handleFormSubmission(event) {
       let listNames = document.createElement("li");
       listNames.textContent = memberName.name;
       list.appendChild(listNames);
+      $('#instructions').hide();
     });
   });
 
 
   // Inventory UI
-  let listSupply = document.getElementById("inventory");
-  const bullets = document.createElement("li");
-  const food = document.createElement("li");
-  const medKit = document.createElement("li");
+  // let listSupply = document.getElementById("inventory");
+  // const bullets = document.createElement("li");
+  // const food = document.createElement("li");
+  // const medKit = document.createElement("li");
 
-  bullets.textContent = `Bullet: ${inventory.bullet}`;
-  food.textContent = `Food: ${inventory.food}`;
-  medKit.textContent = `Med Kit: ${inventory.medkit}`;
+  // bullets.textContent = `Bullet: ${inventory.bullet}`;
+  // food.textContent = `Food: ${inventory.food}`;
+  // medKit.textContent = `Med Kit: ${inventory.medkit}`;
 
-  listSupply.appendChild(bullets);
-  listSupply.appendChild(food);
-  listSupply.appendChild(medKit);
+  // listSupply.appendChild(bullets);
+  // listSupply.appendChild(food);
+  // listSupply.appendChild(medKit);
 
   $("#homeScreen").hide();
   $("#gameScreen").show();
@@ -90,10 +91,11 @@ function updateStats() {
     memberNames += "<li>" + member.name + " | Health: " + member.health + " | Stamina:" + member.stamina + "</li>";
   });
   $("#zombieMembers").html(memberNames);
+
   let inventoryItems = "";
-  inventory.forEach(function(item) {
-    console.log(item);
-    inventoryItems += "<li>" + item.bullet + "</li>";
+  Object.keys(inventory).forEach(function(key){
+    const str2 = key.charAt(0).toUpperCase() + key.slice(1);
+    inventoryItems += "<li>" + str2 +" : " + inventory[key] + "</li>";
   });
   $("#inventory").html(inventoryItems);
 }
@@ -104,18 +106,25 @@ window.addEventListener("load", function () {
   document.querySelector("form#createParty").addEventListener("submit", handleFormSubmission);
 });
 
+//Listener for travel
 $(".travel").click(function () {
   $("#randomEventMessage").empty();
-
+  $(".imgHeader").css("background-image", game.imgArray[game.imgArrayIndex]);
   for (let i = 0; i < party.members.length; i++) {
     party.members[i].staminaLost();
   }
   game.totalDays++;
+  if(game.imgArrayIndex < 2) {
+    game.imgArrayIndex++;
+  } else {
+    game.imgArrayIndex = 0;
+  }
   const rollFates = rollNumber(1,101);
   travel(rollFates, party, inventory);
   updateStats();
 });
 
+// listener for resting
 $(".rest").click(function () {
   //game.totalDays++;
   for (let i = 0; i < party.members.length; i++) {
@@ -127,6 +136,7 @@ $(".rest").click(function () {
   updateStats();
 });
 
+//listener for heal
 $(".heal").click(function () {
   //game.totalDays++;
   for (let i = 0; i < party.members.length; i++) {
@@ -138,7 +148,31 @@ $(".heal").click(function () {
   updateStats();
 });
 
+//listener for restocking
 $(".restock").click(function () {
   inventory.restock();
   game.totalDays++;
+  updateStats();
 });
+
+
+// function checkDeath() {
+//   let deathString = "";
+//   for(let i = 0; i < party.members.length; i++) {
+//     if(party.members[i].deathCheck(i)) {
+//       deathString += party.members[i].name + " has died. ";
+//       party.members.splice(i, 1);
+//       if (party.members.length <= 0) {
+//         $("#event").html("Everyone in your party has died. The game is over.");
+//         $(".imgHeader").css("background-image", "url(../assets/images/GameOver.png");
+//         return;
+//       }
+//       i--;
+//     }
+//   }
+ 
+//   if (deathString) {
+//     deathString += "Bummer.";
+//     $("#event").html(deathString);
+//   }
+// }

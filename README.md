@@ -1,15 +1,15 @@
-# (Application Name)
+# The Zombie Trials
 
 #### (Brief Description of Application)
 
-#### By (Your Name Here)
+#### By Brishna Bakshev, Justin Lee, Hyung Jim Kim, John Lenz
 
 ## Technologies Used
 
-* _List all_
-* _the major technologies_
-* _you used in your project_
-* _here_
+* _Jquery_
+* _Html_
+* _CSS_
+* _JavaScript_
 
 ## Description
 
