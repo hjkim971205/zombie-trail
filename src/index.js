@@ -100,6 +100,18 @@ function updateStats() {
   $("#inventory").html(inventoryItems);
 }
 
+//Checks for finished game
+function gameChecker(){
+  if (game.daysLeft === 0) {
+    $("#randomEventMessage, #event").empty();
+    const left = party.members.length;
+    $("#checkPoint").html("FINALLY SAFE. All " + left + " of your party has survived.");
+    $(".imgHeader").css("background-image", "url(src/assets/images/winner.png)");
+    $(".restartGame").show();
+    $("#gameScreen").hide();
+  }
+}
+
 
 //All the event listener fucntions
 window.addEventListener("load", function () {
@@ -112,10 +124,9 @@ $(".travel").click(function () {
   $(".imgHeader").css("background-image", game.imgArray[game.imgArrayIndex]);
   for (let i = 0; i < party.members.length; i++) {
     party.members[i].staminaLost();
-    
   }
-  checkDeath();
   game.totalDays++;
+  game.daysLeft--;
   if(game.imgArrayIndex < 2) {
     game.imgArrayIndex++;
   } else {
@@ -123,7 +134,9 @@ $(".travel").click(function () {
   }
   const rollFates = rollNumber(1,101);
   travel(rollFates, party, inventory);
+  checkDeath();
   updateStats();
+  gameChecker();
 });
 
 // listener for resting
@@ -190,21 +203,20 @@ $(".restock").click(function () {
 function checkDeath() {
   let deathString = "";
   for(let i = 0; i < party.members.length; i++) {
-    if(party.members[i].deathCheck(i)) {
-      deathString += party.members[i].name + " has died. ";
+    if(party.members[i].health <= 0) {
+      deathString += party.members[i].name + " has died. Bummer!";
       party.members.splice(i, 1);
-      if (party.members.length <= 0) {
-        $("#randomEventMessage").html("Everyone in your party has died. The game is over.");
-        $(".imgHeader").css("background-image", "url(../assets/images/GameOver.png");
-        return;
-      }
       i--;
+      $("#randomEventMessage").text(deathString);
     }
   }
 
-  if (deathString) {
-    deathString += "Bummer.";
-    $("#randomEventMessage").html(deathString);
+  if (party.members.length === 0) {
+    $("randomEventMessage").empty();
+    $("#randomEventMessage").text("Everyone in your party has died. The game is over.");
+    $(".imgHeader").css("background-image", "url(src/assets/images/gameOver.png");
+    $('#gameScreen').hide();
+    $(".restartGame").show();
   }
 }
 
