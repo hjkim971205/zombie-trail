@@ -22,7 +22,6 @@ function handleFormSubmission(event) {
   event.preventDefault();
 
   // Character Names
-
   const carLeader = document.getElementById("addLeader").value;
   const member1 = document.getElementById("addMember1").value;
   const member2 = document.getElementById("addMember2").value;
@@ -62,18 +61,18 @@ function handleFormSubmission(event) {
 
 
   // Inventory UI
-  // let listSupply = document.getElementById("inventory");
-  // const bullets = document.createElement("li");
-  // const food = document.createElement("li");
-  // const medKit = document.createElement("li");
+  let listSupply = document.getElementById("inventory");
+  const bullets = document.createElement("li");
+  const food = document.createElement("li");
+  const medKit = document.createElement("li");
 
-  // bullets.textContent = `Bullet: ${inventory.bullet}`;
-  // food.textContent = `Food: ${inventory.food}`;
-  // medKit.textContent = `Med Kit: ${inventory.medkit}`;
+  bullets.textContent = `Bullet: ${inventory.bullet}`;
+  food.textContent = `Food: ${inventory.food}`;
+  medKit.textContent = `Med Kit: ${inventory.medkit}`;
 
-  // listSupply.appendChild(bullets);
-  // listSupply.appendChild(food);
-  // listSupply.appendChild(medKit);
+  listSupply.appendChild(bullets);
+  listSupply.appendChild(food);
+  listSupply.appendChild(medKit);
 
   $("#homeScreen").hide();
   $("#gameScreen").show();
