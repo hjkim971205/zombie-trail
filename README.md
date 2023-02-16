@@ -1,29 +1,40 @@
-# The Zombie Trials
-
-#### (Brief Description of Application)
+# The Zombie Trail
 
 #### By Brishna Bakshev, Justin Lee, Hyung Jim Kim, John Lenz
 
+## Description
+
+A mock-up version of The Oregon Trail game but zombie edition. The user can select 4 team members to travel in a van to reach their SafeHaven destination.  
+
+![final screen](/src/assets/images/preview.png)
+
 ## Technologies Used
 
-* _Jquery_
-* _Html_
-* _CSS_
-* _JavaScript_
-
-## Description
+* HTML
+* CSS
+* JavaScript
+* jQuery
 
 ## Setup/Installation Requirements
 
-* _This is a great place_
-* _to list setup instructions_
-* _in a simple_
-* _easy-to-understand_
-* _format_
+#### Open Terminal
+```sh
+  $ cd Desktop
+  $ git clone https://github.com/bbakshev/zombie-trail.git
+  $ cd zombie-trail
+```
 
+#### Building the project using webpack with
+```sh
+$ npm run build
+$ npm run start
+```
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+The header image when traveling does not auto-populate. The user has to pre-load the images in the styles.css under background-image. 
 
 ## License
+
+[MIT](https://github.com/noh24/currency-converter/blob/main/license.txt)
+
+Copyright (c) 2023 Brishna Bakshev, Justin Lee, Hyung Jim Kim, John Lenz
