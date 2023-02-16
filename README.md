@@ -4,7 +4,7 @@
 
 ## Description
 
-A mock-up version of The Oregon Trail game but zombie edition. The user can select 4 team members to travel in a van to reach their SafeHaven destination.  
+A mock-up version of The Oregon Trail game but zombie edition. The user can select 4 team members to travel in a van to reach their SafeHaven destination. While in the game, the user has to make some smart choices by keeping their team members alive, otherwise when a team member gets sick, they can die.  
 
 ![final screen](/src/assets/images/preview.png)
 
