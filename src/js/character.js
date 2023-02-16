@@ -2,8 +2,8 @@ import rollNumber from "./rollNumber.js";
 
 export default function Character(name) {//Creates new Character objects with pre-determined stats
   this.name = name;
-  this.health = 50; // when helath becomes 0 the character will die.
-  this.stamina = 100; //"zombie meter" and able to use stamina to use special moves during fights.
+  this.health = 25; // when helath becomes 0 the character will die.
+  this.stamina = 50; //"zombie meter" and able to use stamina to use special moves during fights.
   this.turned = false; //if health becomes 0 turns into zombie. To regain stamina must rest. 
 }
 
