@@ -1,6 +1,6 @@
 # The Zombie Trail
 
-#### By Brishna Bakshev, Justin Lee, Hyung Jim Kim, John Lenz
+#### By: Brishna Bakshev, Justin Lee, Hyung Jim Kim, John Lenz
 
 ## Description
 
@@ -26,6 +26,7 @@ A mock-up version of The Oregon Trail game but zombie edition. The user can sele
 
 #### Building the project using webpack with
 ```sh
+$ npm install
 $ npm run build
 $ npm run start
 ```
